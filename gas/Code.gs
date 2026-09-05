@@ -236,7 +236,7 @@ function testSubmit() {
         email: prop('NOTIFY_EMAIL', true).split(',')[0].trim(),
         tel: '03-0000-0000',
         topic: '新規でHPを作りたい',
-        plan: 'スタンダード（〜10ページ・10万円）',
+        plan: 'スタンダード（〜10ページ・298,000円）',
         timing: '3ヶ月以内',
         current: 'ない',
         other: 'これはテスト送信です。',
