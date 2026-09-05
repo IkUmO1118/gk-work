@@ -1,11 +1,11 @@
-# GK CRAFT — コーポレートサイト
+# GK WORK — コーポレートサイト
 
-**本番: https://gk-craft.netlify.app** ｜ Netlify管理: https://app.netlify.com/projects/gk-craft
+**本番: https://gk-work.netlify.app** ｜ Netlify管理: https://app.netlify.com/projects/gk-work
 
 `main` に push すると Netlify が自動でデプロイする（Deploy Key + Webhook 連携済み）。
 手動デプロイが必要な場合のみ `npx netlify-cli deploy --prod`。
 
-HP制作会社「GK CRAFT」の静的コーポレートサイト。ビルド不要の HTML / CSS / JS。
+HP制作会社「GK WORK」の静的コーポレートサイト。ビルド不要の HTML / CSS / JS。
 
 ```
 .
@@ -46,7 +46,7 @@ Netlify の Sites 画面に `public/` フォルダをドロップする。
 **Git 連携の場合**（推奨）
 
 ```bash
-git init && git add -A && git commit -m "GK CRAFT corporate site"
+git init && git add -A && git commit -m "GK WORK corporate site"
 # GitHub にプッシュしたあと、Netlify の "Import an existing project" から接続
 ```
 
@@ -61,7 +61,7 @@ npx netlify-cli deploy --prod
 
 ### 4. 公開後にやること
 
-- サイト名を `gk-craft` にして `https://gk-craft.netlify.app/` を確保する
+- サイト名を `gk-work` にして `https://gk-work.netlify.app/` を確保する
   （別名にした場合は下記「ドメインを変えるとき」を参照）
 - `public/contact.html` からテスト送信し、スプレッドシートへの記録と
   管理者宛て・申込者宛て両方のメールが届くことを確認する
@@ -77,7 +77,7 @@ cd public && python3 -m http.server 8000
 
 ## ドメインを変えるとき
 
-`gk-craft.netlify.app` を独自ドメイン等に変える場合、次の箇所を置換する。
+`gk-work.netlify.app` を独自ドメイン等に変える場合、次の箇所を置換する。
 
 | ファイル | 箇所 |
 |---|---|
@@ -89,7 +89,7 @@ cd public && python3 -m http.server 8000
 
 ```bash
 # まとめて置換する例
-grep -rl 'gk-craft.netlify.app' . | xargs sed -i '' 's#gk-craft\.netlify\.app#example.co.jp#g'
+grep -rl 'gk-work.netlify.app' . | xargs sed -i '' 's#gk-work\.netlify\.app#example.co.jp#g'
 ```
 
 ## 差し替えポイント

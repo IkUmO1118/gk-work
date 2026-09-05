@@ -1,5 +1,5 @@
 /**
- * GK CRAFT — コンタクトフォーム受信スクリプト
+ * GK WORK — コンタクトフォーム受信スクリプト
  *
  * 役割は 2 つ:
  *   1. 送信内容を Google スプレッドシートに 1 行追記する
@@ -23,7 +23,7 @@ var HEADERS = [
 
 /** ブラウザから URL を開いたときの死活確認用。 */
 function doGet() {
-  return json({ ok: true, service: 'GK CRAFT contact endpoint' });
+  return json({ ok: true, service: 'GK WORK contact endpoint' });
 }
 
 function doPost(e) {
@@ -161,10 +161,10 @@ function notifyByEmail(r, sheetUrl) {
 
   MailApp.sendEmail({
     to: to,
-    subject: '【GK CRAFT】無料相談の申し込み — ' + r.company,
+    subject: '【GK WORK】無料相談の申し込み — ' + r.company,
     body: body,
     replyTo: r.email,
-    name: 'GK CRAFT サイト'
+    name: 'GK WORK サイト'
   });
 
   sendAutoReply(r);
@@ -176,7 +176,7 @@ function sendAutoReply(r) {
     var body = [
       r.company + '　' + r.person + ' 様',
       '',
-      'GK CRAFT です。無料相談のお申し込みをいただき、ありがとうございます。',
+      'GK WORK です。無料相談のお申し込みをいただき、ありがとうございます。',
       '以下の内容で承りました。2営業日以内にご返信します。',
       '',
       '─────────────────────',
@@ -189,16 +189,16 @@ function sendAutoReply(r) {
       '',
       'お急ぎの場合は 050-3590-0212（平日 10:00–18:00）へお電話ください。',
       '',
-      'GK CRAFT',
+      'GK WORK',
       '050-3590-0212 / 東京都',
-      'https://gk-craft.netlify.app/'
+      'https://gk-work.netlify.app/'
     ].join('\n');
 
     MailApp.sendEmail({
       to: r.email,
-      subject: '【GK CRAFT】お申し込みを受け付けました',
+      subject: '【GK WORK】お申し込みを受け付けました',
       body: body,
-      name: 'GK CRAFT'
+      name: 'GK WORK'
     });
   } catch (err) {
     console.error('自動返信の送信に失敗: ' + err);
@@ -236,11 +236,11 @@ function testSubmit() {
         email: prop('NOTIFY_EMAIL', true).split(',')[0].trim(),
         tel: '03-0000-0000',
         topic: '新規でHPを作りたい',
-        plan: 'スタンダード（〜10タブ・10万円）',
+        plan: 'スタンダード（〜10ページ・10万円）',
         timing: '3ヶ月以内',
         current: 'ない',
         other: 'これはテスト送信です。',
-        pageUrl: 'https://gk-craft.netlify.app/contact.html',
+        pageUrl: 'https://gk-work.netlify.app/contact.html',
         userAgent: 'Apps Script test'
       })
     }

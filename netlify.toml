@@ -1,4 +1,4 @@
-# GK CRAFT — Netlify 設定
+# GK WORK — Netlify 設定
 # ビルド不要の静的サイト。public/ 配下だけが公開される（gas/ は公開されない）。
 
 [build]

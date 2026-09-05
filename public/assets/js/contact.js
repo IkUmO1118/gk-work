@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GK CRAFT — コンタクトフォーム
+   GK WORK — コンタクトフォーム
    Google Apps Script のウェブアプリへ JSON を POST する。
 
    CORS について:
@@ -11,7 +11,7 @@
 (function () {
   'use strict';
 
-  var CONFIG = window.GKCRAFT_CONFIG || {};
+  var CONFIG = window.GKWORK_CONFIG || {};
   var TIMEOUT_MS = 15000;
 
   var form = document.getElementById('contact-form');

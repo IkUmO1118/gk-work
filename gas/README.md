@@ -8,7 +8,7 @@
 ## 1. スプレッドシートを作る
 
 1. https://sheets.new を開く
-2. ファイル名を `GK CRAFT 問い合わせ` などにする
+2. ファイル名を `GK WORK 問い合わせ` などにする
 3. URL から **スプレッドシート ID** を控える
 
    ```
@@ -72,9 +72,9 @@ https://script.google.com/macros/s/AKfycb.../exec
 `public/assets/js/config.js` を開き、控えた URL を貼る。
 
 ```js
-window.GKCRAFT_CONFIG = {
+window.GKWORK_CONFIG = {
   GAS_ENDPOINT: "https://script.google.com/macros/s/AKfycb.../exec",
-  FALLBACK_EMAIL: "info@gk-craft.jp",
+  FALLBACK_EMAIL: "info@gk-work.jp",
   FALLBACK_TEL: "050-3590-0212"
 };
 ```
