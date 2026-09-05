@@ -1,0 +1,46 @@
+# GK CRAFT — Netlify 設定
+# ビルド不要の静的サイト。public/ 配下だけが公開される（gas/ は公開されない）。
+
+[build]
+  publish = "public"
+  command = ""
+
+# Netlify の後処理を止める。有効だと HTML を書き換えたうえで
+# 宣伝コメント・meta と HUD スクリプトを差し込み、その HUD が
+# インラインの style/script を書こうとして CSP に弾かれる。
+[build.processing]
+  skip_processing = true
+
+[build.processing.html]
+  pretty_urls = false
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+
+# ハッシュを持たないファイル名なので、CSS/JS は短めのキャッシュに留める
+[[headers]]
+  for = "/assets/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/assets/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/assets/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+# /contact でも /contact.html に届くようにする
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 301

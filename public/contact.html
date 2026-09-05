@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>無料相談のお申し込み｜GK CRAFT</title>
+<meta name="description" content="GK CRAFTの無料相談フォーム。選択式で1分。内容を確認のうえ2営業日以内にご返信します。お電話は050-3590-0212（平日10:00–18:00）。">
+<link rel="canonical" href="https://gk-craft.netlify.app/contact.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GK CRAFT">
+<meta property="og:title" content="無料相談のお申し込み｜GK CRAFT">
+<meta property="og:description" content="選択式で1分。内容を確認のうえ2営業日以内にご返信します。">
+<meta property="og:url" content="https://gk-craft.netlify.app/contact.html">
+<meta property="og:image" content="https://gk-craft.netlify.app/assets/img/office.jpg">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="theme-color" content="#f3f2f2">
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body class="contact-page">
+
+<a class="skip-link" href="#main">本文へスキップ</a>
+
+<header>
+  <nav class="site-nav" aria-label="メインナビゲーション">
+    <a class="brand" href="/">GK CRAFT<span class="dot">.</span></a>
+    <a class="nav-link" href="/">← トップに戻る</a>
+    <a class="nav-link nav-link-keep nav-tel" href="tel:05035900212">050-3590-0212</a>
+  </nav>
+</header>
+
+<main id="main" class="contact-main">
+
+  <div class="wrap contact-head">
+    <span class="kicker">Free consultation</span>
+    <h1>無料相談のお申し込み</h1>
+    <p class="lede">選択式です。1分で送信できます。内容を確認のうえ、2営業日以内にご返信します。</p>
+  </div>
+
+  <div class="wrap contact-grid">
+
+    <div id="form-panel">
+      <noscript>
+        <p class="form-status" data-state="error">
+          お使いのブラウザでは JavaScript が無効のため、このフォームは送信できません。
+          お手数ですが <a href="tel:05035900212">050-3590-0212</a>（平日 10:00–18:00）へお電話ください。
+        </p>
+      </noscript>
+
+      <form id="contact-form" class="contact-form" novalidate>
+
+        <div class="field">
+          <label for="topic">ご相談内容</label>
+          <select id="topic" name="topic" class="input">
+            <option>新規でHPを作りたい</option>
+            <option>今のHPをリニューアルしたい</option>
+            <option>ページの追加・修正をしたい</option>
+            <option>定期メンテナンスを相談したい</option>
+            <option>まだ決まっていない／まず話を聞きたい</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="plan">ご希望のプラン</label>
+          <select id="plan" name="plan" class="input">
+            <option>ペライチ（1ページ・5万円）</option>
+            <option>スタンダード（〜10タブ・10万円）</option>
+            <option>拡張（11タブ〜・30万円〜）</option>
+            <option selected>未定・相談して決めたい</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="timing">公開希望時期</label>
+            <select id="timing" name="timing" class="input">
+              <option>1ヶ月以内</option>
+              <option>3ヶ月以内</option>
+              <option>半年以内</option>
+              <option selected>未定</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="current">現在のHP</label>
+            <select id="current" name="current" class="input">
+              <option>ない</option>
+              <option>ある（作り直したい）</option>
+              <option>ある（部分的に直したい）</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="rule rule-tight">
+
+        <div class="field-row">
+          <div class="field">
+            <label for="company">会社名 <span class="req" aria-hidden="true">*</span></label>
+            <input id="company" name="company" class="input" type="text" placeholder="株式会社〇〇" required autocomplete="organization">
+            <p class="field-error" id="company-error">会社名をご入力ください。</p>
+          </div>
+          <div class="field">
+            <label for="person">ご担当者名 <span class="req" aria-hidden="true">*</span></label>
+            <input id="person" name="person" class="input" type="text" placeholder="山田 太郎" required autocomplete="name">
+            <p class="field-error" id="person-error">ご担当者名をご入力ください。</p>
+          </div>
+          <div class="field">
+            <label for="email">メールアドレス <span class="req" aria-hidden="true">*</span></label>
+            <input id="email" name="email" class="input" type="email" placeholder="info@example.co.jp" required autocomplete="email" inputmode="email">
+            <p class="field-error" id="email-error">メールアドレスの形式をご確認ください。</p>
+          </div>
+          <div class="field">
+            <label for="tel">電話番号（任意）</label>
+            <input id="tel" name="tel" class="input" type="tel" placeholder="03-0000-0000" autocomplete="tel" inputmode="tel">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="other">その他・伝えたいこと（任意）</label>
+          <textarea id="other" name="other" class="input" rows="6" placeholder="参考にしたいサイト、掲載したい実績、社内の事情など、決まっていないことも含めて自由にご記入ください。"></textarea>
+          <p class="note note-sm">プルダウンで選べなかったご相談は、こちらにご記入ください。</p>
+        </div>
+
+        <!-- スパム対策: 人間には見えない。入力されていたら破棄する。 -->
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Website</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="submit-btn">無料相談を送信する</button>
+          <a href="/" class="btn btn-ghost">やめる</a>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+
+    <div id="thanks-panel" class="thanks" hidden>
+      <h2>送信しました。</h2>
+      <p>2営業日以内にご返信します。お急ぎの場合は <a href="tel:05035900212">050-3590-0212</a> へお電話ください。</p>
+      <div class="actions">
+        <a href="/" class="btn btn-primary">トップに戻る</a>
+        <button type="button" class="btn btn-ghost" id="reset-btn">もう一度入力する</button>
+      </div>
+    </div>
+
+    <aside class="aside">
+      <div>
+        <h2>お電話でも受け付けます</h2>
+        <a class="tel" href="tel:05035900212">050-3590-0212</a>
+        <p class="hours">平日 10:00–18:00</p>
+      </div>
+      <div class="aside-block">
+        <h2>相談の場でお伝えすること</h2>
+        <ul class="checklist">
+          <li><span class="marker" aria-hidden="true"></span><span>いま検索したときの、御社の見え方</span></li>
+          <li><span class="marker" aria-hidden="true"></span><span>必要なページ構成と、不要なページ</span></li>
+          <li><span class="marker" aria-hidden="true"></span><span>費用と公開までの期間の目安</span></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer site-footer--ruled">
+  <span class="brand-mark">GK CRAFT</span>
+  <span>050-3590-0212 / 東京都</span>
+  <span class="push">© 2026 GK CRAFT</span>
+</footer>
+
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/contact.js"></script>
+</body>
+</html>
