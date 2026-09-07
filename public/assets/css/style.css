@@ -93,6 +93,25 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.015em;
   margin: 0 0 var(--space-2);
 }
+/* 見出しは行を均等に割る。「なぜ、HPが必要な／のか。」のように
+   最終行が数文字だけ残る割れ方を防ぐ。
+
+   本文と同じ「両端揃え + ic丸め」は見出しには使わない。見出しは
+   字数が少なく1行あたりの端数が大きいため、両端揃えにすると
+   28px の表示サイズで1文字あたり 20%em も開いてしまう（実測）。
+   balance は左揃えのままなので字間は一切伸びない。
+
+   hero と CTA の h1/h2 は span で改行位置を指定してある。その span 内で
+   balance を掛けると「まず、検索さ／れたときに」のように語の途中で
+   割れてしまうので対象外にする（指定どおり素直に折り返させる）。 */
+h1, h2, h3,
+.pullquote {
+  text-wrap: balance;
+}
+/* balance ではなく pretty。均等割りはしないが、最終行が1文字だけ
+   残るのを避けてくれる（320px で「…されたとき／に」を防ぐ）。 */
+.hero h1 span, .cta h2 span { text-wrap: pretty; }
+
 p { margin: 0 0 var(--space-3); }
 img { display: block; max-width: 100%; }
 figure { margin: 0; }
@@ -437,6 +456,12 @@ body.nav-open { overflow: hidden; }
   line-height: 1.12; letter-spacing: -0.015em; margin: 0; color: var(--color-bg);
 }
 .cta h2 span { display: block; }
+/* 320px では 28px x 12文字 = 331px となり、容れ物の 280px に収まらない。
+   span で指定した2行の改行位置が壊れるので、この幅だけ字を落として
+   意図どおり2行に収める（375px では実質 27px でほぼ変化なし）。 */
+@media (max-width: 400px) {
+  .cta h2 { font-size: clamp(23px, 7.2vw, 28px); }
+}
 .cta p { font-size: 16px; line-height: 1.85; max-width: 34em; max-width: 34ic; margin: 28px 0 0; color: var(--color-bg); }
 
 /* — footer — */
