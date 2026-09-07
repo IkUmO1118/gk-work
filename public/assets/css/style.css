@@ -224,6 +224,30 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
   text-align: justify;
 }
 
+/* 行長を和文1文字（1ic）の整数倍に切り下げる。
+   コンテナ幅が文字幅の整数倍でないと必ず端数が残り、両端揃えは
+   その端数を字間に配って埋める＝字間が伸びる。先に箱の側を
+   字詰めに合わせておけば、配るべき端数がほとんど出ない。
+   実測: 320px で平均13.7px → 4.9px。
+
+   round() 非対応ブラウザでは width が丸ごと無効になり、
+   従来どおり（伸びるが破綻はしない）に戻るだけ。
+
+   li は grid の2列目にテキストが入るので li 自身を丸めても
+   意味がない。実際のテキスト箱である p 側に掛ける。 */
+.lede,
+.numbered p,
+.option-grid p,
+.note,
+.note-sm,
+.cta p,
+.thanks p,
+.aside .hours {
+  width: round(down, 100%, 1ic);
+  /* pretty は入るはずの1文字を次行へ送ることがあり、端数を増やす */
+  text-wrap: wrap;
+}
+
 /* — site header — */
 .site-nav {
   display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
