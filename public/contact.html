@@ -36,7 +36,24 @@
     <a class="brand" href="/"><img class="brand-logo" src="/assets/img/logo-mark.png" alt="" width="28" height="28" decoding="async"><span class="brand-name">GK WORK<span class="dot">.</span></span></a>
     <a class="nav-link" href="/">← トップに戻る</a>
     <a class="nav-link nav-link-keep nav-tel" href="tel:05035900212">050-3590-0212</a>
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-drawer">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
   </nav>
+
+  <div class="nav-drawer" id="nav-drawer">
+    <div class="nav-drawer-backdrop" data-nav-close></div>
+    <div class="nav-drawer-panel">
+      <a class="drawer-link" href="/"><span class="n">01</span>トップに戻る</a>
+      <a class="drawer-link" href="/#service"><span class="n">02</span>制作内容</a>
+      <a class="drawer-link" href="/#price"><span class="n">03</span>費用</a>
+      <div class="drawer-foot">
+        <a class="drawer-tel" href="tel:05035900212">050-3590-0212</a>
+      </div>
+    </div>
+  </div>
 </header>
 
 <main id="main" class="contact-main">
@@ -179,5 +196,7 @@
 
 <script src="/assets/js/config.js"></script>
 <script src="/assets/js/contact.js"></script>
+<script src="/assets/js/nav.js" defer></script>
+
 </body>
 </html>

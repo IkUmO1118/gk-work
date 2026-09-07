@@ -1,6 +1,16 @@
 /* ==========================================================================
    GK WORK — corporate site
    Design system: "Modernist" tokens (source: Claude Design)
+   --------------------------------------------------------------------------
+   【注意】このサイトで ch 単位を使わないこと。
+
+   ch は「先頭フォントの 0 の字幅」で解決される。--font-body の先頭は
+   欧文の Archivo で、和文グリフを持たないため和文は Zen Kaku Gothic New に
+   フォールバックする。しかし ch の計算だけは常に Archivo 基準のままで、
+   実測 1ch = 0.57em。つまり max-width:46ch と書いても和文では約25文字しか
+   取れず、p の右側に 200〜300px の空白が残る（実際にこの不具合を出した）。
+
+   和文の行長は ic（1ic = 和文1文字）で指定する。ex なども同じ理由で不可。
    ========================================================================== */
 
 :root {
@@ -72,6 +82,7 @@ body {
   line-height: 1.55;
   font-weight: 400;
   text-wrap: pretty;
+  line-break: strict;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -190,9 +201,27 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
   text-transform: uppercase; color: var(--color-accent-700); margin: 0 0 20px;
 }
 
+/* 本文幅は ic 基準（1ic = 和文1文字ぶん）。ic 未対応ブラウザ用に
+   同値の em を先に書いてある（このフォントでは 1ic == 1em）。
+   ch を使ってはいけない理由はファイル冒頭の注意書きを参照。 */
 .lede {
   font-size: 16px; line-height: 1.85; margin: 24px 0 0;
   color: color-mix(in srgb, var(--color-text) 82%, transparent);
+}
+
+/* 日本語の本文は両端揃えにする。左揃えのままだと、行末に全角1文字ぶんの
+   すき間（最大30pxほど）が毎行残り、p の右側だけ白く空いて見える。
+   見出し・引用・ボタン・表など、行数が少ない要素は揃えない。 */
+.lede,
+.numbered p,
+.option-grid p,
+.note,
+.note-sm,
+.cta p,
+.thanks p,
+.checklist li,
+.aside .hours {
+  text-align: justify;
 }
 
 /* — site header — */
@@ -213,15 +242,82 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
 .site-nav .nav-link { font-size: 14px; font-weight: 500; color: var(--color-text); }
 .site-nav .nav-link:hover { color: var(--color-accent); }
 
-@media (max-width: 800px) {
+/* — burger + drawer —
+   デザイン（Claude Design のキャンバス）では 860px 未満でリンク列を畳み、
+   ハンバーガー＋ドロワーに差し替えている。ここでもその分岐に合わせる。
+   CSP が script-src/style-src を絞っているため、状態は body/button の
+   属性で持ち、インライン style は使わない。 */
+.nav-toggle {
+  display: none; align-items: center; justify-content: center;
+  flex-direction: column; gap: 5px;
+  width: 44px; height: 44px; margin-right: -10px; margin-left: -6px;
+  padding: 0; background: none; border: 0; cursor: pointer; color: inherit;
+}
+.nav-toggle-bar {
+  display: block; width: 20px; height: 2px; background: var(--color-text);
+  transition: transform 200ms cubic-bezier(.2,.8,.2,1), opacity 140ms linear;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-drawer { display: none; }
+body.nav-open .nav-drawer { display: block; }
+.nav-drawer-backdrop {
+  position: fixed; inset: 0; z-index: 40;
+  background: color-mix(in srgb, var(--color-text) 42%, transparent);
+  animation: navFadeIn 160ms ease-out;
+}
+.nav-drawer-panel {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 45;
+  background: var(--color-bg); border-bottom: 2px solid var(--color-text);
+  padding: 8px var(--gutter);
+  animation: navDrawerIn 200ms cubic-bezier(.2,.8,.2,1);
+  /* 横向きの端末だと中身が画面より高くなる。バーの高さは
+     44px(ボタン) + 18px*2(padding) + 2px(border) = 82px で固定。 */
+  max-height: calc(100dvh - 82px); overflow-y: auto;
+}
+@keyframes navFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes navDrawerIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+
+.drawer-link {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 0; border-top: 2px solid var(--color-divider);
+  font-size: 17px; font-weight: 700; color: var(--color-text);
+}
+.drawer-link:first-child { border-top: 0; }
+.drawer-link:hover { color: var(--color-accent); text-decoration: none; }
+.drawer-link .n {
+  font-family: var(--font-heading); font-weight: 800; font-size: 12px; opacity: 0.45;
+}
+.drawer-foot { padding: 24px 0 28px; display: grid; gap: 12px; justify-items: start; }
+.drawer-foot .btn-block { padding-block: 14px; font-size: 15px; max-width: 360px; }
+.drawer-tel {
+  font-family: var(--font-heading); font-weight: 800; font-size: 15px;
+  letter-spacing: 0.02em; color: var(--color-text);
+}
+/* デザインシステムの .btn-block は左寄せだが、ドロワーの CTA は中央寄せの方が
+   ボタンとして読めるので width だけ借りている。 */
+.btn-block { width: 100%; }
+
+@media (max-width: 900px) {
   .site-nav { gap: 16px; }
   .site-nav .nav-link { font-size: 13px; }
 }
-@media (max-width: 560px) {
-  .site-nav { gap: 12px 16px; }
+@media (max-width: 860px) {
+  /* バーガーを押せる位置に留めるため、この幅ではヘッダーを追従させる */
+  header { position: sticky; top: 0; z-index: 50; background: var(--color-bg); }
+  /* header が重ね合わせコンテキストを作るので、バー自体を背景幕より前に出す。
+     そうしないとロゴと閉じるボタンまで暗転する。 */
+  .site-nav { position: relative; z-index: 50; background: var(--color-bg); flex-wrap: nowrap; gap: 12px; }
   .site-nav .nav-link { display: none; }
-  .site-nav .nav-link.nav-link-keep { display: inline; }
+  .nav-toggle { display: flex; }
 }
+@media (max-width: 420px) {
+  /* brand + CTA + バーガーが 1 行に収まらなくなる。CTA はドロワー側にある。 */
+  .site-nav .nav-link-keep { display: none; }
+}
+body.nav-open { overflow: hidden; }
 
 /* — hero — */
 /* 2カラム。見出しは1行8文字が折り返さない上限（=カラム幅/8）でクランプしている。 */
@@ -235,7 +331,7 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
   line-height: 1.14; letter-spacing: -0.02em; margin: 0;
 }
 .hero h1 span { display: block; }
-.hero .lede { font-size: 17px; max-width: 46ch; margin-top: 32px; }
+.hero .lede { font-size: 17px; max-width: 38em; max-width: 38ic; margin-top: 32px; }
 .hero-figure img {
   width: 100%; height: auto; aspect-ratio: 1112 / 982;
   /* 画像の地色は --color-bg と同値に焼き込み済みなので、余白が背景に溶ける */
@@ -282,7 +378,7 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
 .pullquote {
   font-family: var(--font-heading); font-weight: 800;
   font-size: clamp(20px, 2.4vw, 30px); line-height: 1.45; letter-spacing: -0.01em;
-  max-width: 34ch; margin: clamp(40px, 5vw, 64px) 0 0;
+  max-width: 22em; max-width: 22ic; margin: clamp(40px, 5vw, 64px) 0 0;
   padding-top: 32px; border-top: 2px solid var(--color-divider);
 }
 
@@ -292,7 +388,7 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
   gap: 32px clamp(24px, 5vw, 96px); align-items: center;
 }
 @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
-.split .lede { font-size: 15.5px; max-width: 42ch; }
+.split .lede { font-size: 15.5px; max-width: 34em; max-width: 34ic; }
 .split figure img { width: 100%; aspect-ratio: 951 / 665; object-fit: cover; }
 
 /* — pricing — */
@@ -307,7 +403,7 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
   border-top: 2px solid var(--color-divider);
 }
 .option-grid h3 { font-weight: 800; font-size: 21px; line-height: 1.35; margin: 18px 0 0; }
-.option-grid p { font-size: 15px; line-height: 1.8; margin: 0; max-width: 44ch; color: color-mix(in srgb, var(--color-text) 82%, transparent); }
+.option-grid p { font-size: 15px; line-height: 1.8; margin: 0; max-width: 36em; max-width: 36ic; color: color-mix(in srgb, var(--color-text) 82%, transparent); }
 
 /* — CTA band — */
 .cta { background: var(--color-accent); color: var(--color-bg); }
@@ -317,7 +413,7 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
   line-height: 1.12; letter-spacing: -0.015em; margin: 0; color: var(--color-bg);
 }
 .cta h2 span { display: block; }
-.cta p { font-size: 16px; line-height: 1.85; max-width: 40ch; margin: 28px 0 0; color: var(--color-bg); }
+.cta p { font-size: 16px; line-height: 1.85; max-width: 34em; max-width: 34ic; margin: 28px 0 0; color: var(--color-bg); }
 
 /* — footer — */
 .site-footer {
@@ -343,7 +439,7 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
   font-weight: 800; font-size: clamp(30px, 4.4vw, 56px);
   line-height: 1.16; letter-spacing: -0.02em; margin: 0;
 }
-.contact-head .lede { max-width: 44ch; margin-top: 28px; }
+.contact-head .lede { max-width: 36em; max-width: 36ic; margin-top: 28px; }
 
 .contact-grid {
   display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
@@ -366,7 +462,7 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
 
 .thanks { border-top: 2px solid var(--color-accent); padding-top: 32px; }
 .thanks h2 { font-weight: 800; font-size: clamp(24px, 3vw, 34px); line-height: 1.25; letter-spacing: -0.015em; margin: 0; }
-.thanks p { font-size: 16px; line-height: 1.85; max-width: 40ch; margin: 24px 0 0; color: color-mix(in srgb, var(--color-text) 82%, transparent); }
+.thanks p { font-size: 16px; line-height: 1.85; max-width: 34em; max-width: 34ic; margin: 24px 0 0; color: color-mix(in srgb, var(--color-text) 82%, transparent); }
 .thanks .actions { margin-top: 32px; }
 
 .aside { border-top: 2px solid var(--color-divider); padding-top: 28px; display: grid; gap: 28px; }
@@ -389,7 +485,7 @@ textarea.input { min-height: 90px; resize: vertical; font-family: inherit; line-
    Local modifiers
    （インラインstyleを使わないのは、CSPで style-src を絞っているため）
    ========================================================================== */
-.lede-narrow { max-width: 44ch; }
+.lede-narrow { max-width: 38em; max-width: 38ic; }
 .pricing-title { margin-bottom: 32px; }
 .actions-center { justify-content: center; }
 .nav-tel { font-family: var(--font-heading); font-weight: 800; font-size: 15px; }
