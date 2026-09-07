@@ -108,6 +108,14 @@ h1, h2, h3,
 .pullquote {
   text-wrap: balance;
 }
+
+/* 和文には語の区切りがないため、balance は行長を均等にしようとして
+   「確かめる」を「確か／める」のように語の途中で割る。文節を
+   inline-block の塊にしておくと、塊の内部では折れず、塊の境界
+   （＝読点）でだけ折り返す。1行に収まる幅では1行のままなので、
+   広い画面の見た目は変わらない。
+   ソース上で span 同士を改行で区切らないこと（空白が入る）。 */
+.phrase { display: inline-block; }
 /* balance ではなく pretty。均等割りはしないが、最終行が1文字だけ
    残るのを避けてくれる（320px で「…されたとき／に」を防ぐ）。 */
 .hero h1 span, .cta h2 span { text-wrap: pretty; }
