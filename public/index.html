@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GK WORK｜中小企業のためのホームページ制作</title>
-<meta name="description" content="GK WORKは、中小企業の取引を前に進めるためのホームページを作る制作会社です。デザインの前に、取引先が何を確かめたいのかを整理します。ペライチ148,000円から。初回相談は無料。">
+<meta name="description" content="GK WORKは、中小企業専門のホームページ・アプリを制作しています。貴社の魅力をWebで正しく伝え、新規取引先の拡大と営業のリーチを前に進めます。ライトプラン148,000円から、初回相談は無料。">
 <link rel="canonical" href="https://gk-work.netlify.app/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="GK WORK">
 <meta property="og:title" content="GK WORK｜中小企業のためのホームページ制作">
-<meta property="og:description" content="会社は、会う前に検索されている。取引の判断材料になるホームページを作ります。ペライチ148,000円から、初回相談は無料。">
+<meta property="og:description" content="もっと伝わる。もっとつながる。ビジネスの未来をつくる。中小企業専門のホームページ・アプリを制作しています。ライトプラン148,000円から、初回相談は無料。">
 <meta property="og:url" content="https://gk-work.netlify.app/">
-<meta property="og:image" content="https://gk-work.netlify.app/assets/img/office.jpg">
+<meta property="og:image" content="https://gk-work.netlify.app/assets/img/og-home.jpg">
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 
-<meta name="theme-color" content="#f3f2f2">
+<meta name="theme-color" content="#0b4ca6">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/assets/img/favicon-192.png" sizes="192x192" type="image/png">
@@ -25,17 +25,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/home.css">
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "GK WORK",
-  "description": "中小企業向けのホームページ制作。取引先が確かめたい情報を整理し、更新できる形で納品します。",
+  "description": "中小企業専門のホームページ・アプリを制作しています。取引先が確かめたい情報を整理し、更新できる形で納品します。",
   "url": "https://gk-work.netlify.app/",
   "telephone": "+81-50-3590-0212",
-  "image": "https://gk-work.netlify.app/assets/img/office.jpg",
+  "image": "https://gk-work.netlify.app/assets/img/og-home.jpg",
   "address": { "@type": "PostalAddress", "addressRegion": "東京都", "addressCountry": "JP" },
   "areaServed": "JP",
   "priceRange": "¥¥",
@@ -48,9 +49,9 @@
     "@type": "OfferCatalog",
     "name": "ホームページ制作プラン",
     "itemListElement": [
-      { "@type": "Offer", "name": "ペライチ（1ページ完結）", "price": "148000", "priceCurrency": "JPY" },
-      { "@type": "Offer", "name": "スタンダード（〜10ページ）", "price": "298000", "priceCurrency": "JPY" },
-      { "@type": "Offer", "name": "プロ（11ページ〜）", "price": "448000", "priceCurrency": "JPY" }
+      { "@type": "Offer", "name": "ライトプラン（5ページまで）", "price": "148000", "priceCurrency": "JPY" },
+      { "@type": "Offer", "name": "スタンダードプラン（10ページまで）", "price": "298000", "priceCurrency": "JPY" },
+      { "@type": "Offer", "name": "プレミアムプラン（20ページまで）", "price": "448000", "priceCurrency": "JPY" }
     ]
   }
 }
@@ -60,13 +61,16 @@
 
 <a class="skip-link" href="#main">本文へスキップ</a>
 
-<header>
+<!-- 制作実績・運営者情報はヘッダーから外してある（フッターには残置）。
+     ページを作ったら /works.html などを足し、フッターの is-pending と
+     title="準備中" を外すこと。 -->
+<header class="site-header">
   <nav class="site-nav" aria-label="メインナビゲーション">
-    <a class="brand" href="/"><img class="brand-logo" src="/assets/img/logo-mark.png" alt="" width="28" height="28" decoding="async"><span class="brand-name">GK WORK<span class="dot">.</span></span></a>
-    <a class="nav-link" href="#reason">HPを持つ意味</a>
-    <a class="nav-link" href="#service">制作内容</a>
-    <a class="nav-link" href="#price">費用</a>
-    <a class="btn btn-primary nav-link-keep" href="/contact.html">無料で相談する</a>
+    <a class="brand" href="/"><span class="brand-name">GK WORK</span></a>
+    <a class="nav-link" href="/service.html">サービス</a>
+    <a class="nav-link" href="/price.html">料金</a>
+    <a class="nav-link" href="/faq.html">よくある質問</a>
+    <a class="btn btn-primary nav-cta" href="/contact.html">無料相談・お問い合わせ<span class="arrow" aria-hidden="true">→</span></a>
     <button type="button" class="nav-toggle" id="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-drawer">
       <span class="nav-toggle-bar"></span>
       <span class="nav-toggle-bar"></span>
@@ -77,12 +81,11 @@
   <div class="nav-drawer" id="nav-drawer">
     <div class="nav-drawer-backdrop" data-nav-close></div>
     <div class="nav-drawer-panel">
-      <a class="drawer-link" href="#reason"><span class="n">01</span>HPを持つ意味</a>
-      <a class="drawer-link" href="#service"><span class="n">02</span>制作内容</a>
-      <a class="drawer-link" href="#price"><span class="n">03</span>費用</a>
+      <a class="drawer-link" href="/service.html"><span class="n">01</span>サービス</a>
+      <a class="drawer-link" href="/price.html"><span class="n">02</span>料金</a>
+      <a class="drawer-link" href="/faq.html"><span class="n">03</span>よくある質問</a>
       <div class="drawer-foot">
-        <a class="btn btn-primary btn-block" href="/contact.html">無料で相談する</a>
-        <a class="drawer-tel" href="tel:05035900212">050-3590-0212</a>
+        <a class="btn btn-primary btn-block" href="/contact.html">無料相談・お問い合わせ<span class="arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
   </div>
@@ -90,128 +93,167 @@
 
 <main id="main">
 
-  <section class="wrap hero">
-    <div class="hero-copy">
-      <h1>
-        <span>会社は、会う前に</span>
-        <span>検索されている。</span>
-      </h1>
-      <p class="lede">GK WORKは、中小企業の取引を前に進めるためのホームページを作る制作会社です。デザインの前に、誰が何を確かめたいのかを整理します。</p>
-      <div class="actions">
-        <a href="/contact.html" class="btn btn-primary">無料で相談する</a>
-        <a href="#reason" class="btn btn-ghost">HPを持つ意味を読む</a>
-      </div>
-    </div>
-    <figure class="hero-figure">
-      <picture>
-        <source srcset="/assets/img/hero-flow.webp" type="image/webp">
-        <img src="/assets/img/hero-flow.jpg"
-             alt="ホームページを起点に、問い合わせ・商談・取引へとつながる流れを表したイラスト"
-             width="1112" height="982" fetchpriority="high" decoding="async">
+  <section class="hero">
+    <div class="hero-media" aria-hidden="true">
+      <picture class="hero-city">
+        <source srcset="/assets/img/city-skyline.webp" type="image/webp">
+        <img src="/assets/img/city-skyline.jpg" alt="" width="1182" height="414" fetchpriority="high" decoding="async">
       </picture>
-    </figure>
-  </section>
+      <picture class="hero-person">
+        <source srcset="/assets/img/hero-executive.webp" type="image/webp">
+        <img src="/assets/img/hero-executive.jpg" alt="" width="878" height="1016" fetchpriority="high" decoding="async">
+      </picture>
+    </div>
 
-  <hr class="rule">
-
-  <section id="reason" class="wrap section">
-    <span class="kicker">Why a website</span>
-    <h2>なぜ、HPが必要なのか。</h2>
-    <p class="lede lede-narrow">前提はひとつ。取引の判断は、担当者が会社名を検索した時点で始まっています。効果は二方向に働きます。</p>
-
-    <div class="reason-grid">
-
-      <div class="reason-col">
-        <div class="reason-head">
-          <span class="marker" aria-hidden="true"></span>
-          <h3>1. 会社の信用力が上がる</h3>
+    <div class="wrap hero-inner">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">中小企業の「挑戦」を、Webで加速する。</p>
+        <h1>
+          <span>もっと伝わる。</span>
+          <span>もっとつながる。</span>
+          <span>ビジネスの未来をつくる。</span>
+        </h1>
+        <p class="hero-lede">
+          <span>GK WORKは、中小企業専門のホームページ・アプリを制作しています。</span>
+          <span>貴社の魅力を、Webで正しく伝え、</span>
+          <span>新規取引先の拡大・営業のリーチを前に進めます。</span>
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-white" href="/contact.html">無料相談する<span class="arrow" aria-hidden="true">→</span></a>
         </div>
-        <ol class="numbered">
-          <li><span class="n">01</span><p>検索して情報が出てこない会社は、実在も事業内容も確認できない。確認できないものは、社内で説明できない。</p></li>
-          <li><span class="n">02</span><p>事業内容・実績・体制・所在地が公開されていれば、それが判断材料になる。</p></li>
-          <li><span class="n">03</span><p>判断材料がある会社は、稟議と与信の場で通りやすい。信用は、公開されている情報の量と整い方でつくられる。</p></li>
-        </ol>
       </div>
+    </div>
+  </section>
 
-      <div class="reason-col">
-        <div class="reason-head">
-          <span class="marker" aria-hidden="true"></span>
-          <h3>2. 新規取引先が広がる</h3>
+  <section id="why" class="wrap section">
+    <h2 class="section-title">なぜ、今Webサイトなのか？</h2>
+
+    <div class="reasons">
+      <div class="reason">
+        <span class="reason-num" aria-hidden="true">01</span>
+        <h3>信用力の向上</h3>
+        <p><span class="phrase">しっかりとしたWebサイトは、</span><span class="phrase">企業の信頼性を高めます。</span></p>
+      </div>
+      <div class="reason">
+        <span class="reason-num" aria-hidden="true">02</span>
+        <h3>新規取引先の拡大</h3>
+        <p><span class="phrase">検索からの問い合わせや</span><span class="phrase">新しい取引先との接点を生み出します。</span></p>
+      </div>
+      <div class="reason">
+        <span class="reason-num" aria-hidden="true">03</span>
+        <h3>営業のリーチを前に</h3>
+        <p><span class="phrase">Webを通じて、</span><span class="phrase">これまで届かなかった顧客にもアプローチ。</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="price" class="pricing section">
+    <div class="pricing-media" aria-hidden="true">
+      <picture>
+        <source srcset="/assets/img/pricing-glass.webp" type="image/webp">
+        <img src="/assets/img/pricing-glass.jpg" alt="" width="1144" height="404" loading="lazy" decoding="async">
+      </picture>
+    </div>
+
+    <div class="wrap">
+      <h2 class="section-title">料金プラン</h2>
+      <p class="pricing-sub">ページ数に応じた3つのプランをご用意しています。</p>
+
+      <div class="plans">
+
+        <div class="plan">
+          <h3 class="plan-name">ライトプラン</h3>
+          <p class="plan-scale">5ページまで</p>
+          <p class="plan-price">
+            <span class="yen">¥</span><span class="amount">148,000</span><span class="from">〜</span><span class="tax">（税別）</span>
+          </p>
+          <ul class="plan-features">
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>トップページ</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>会社概要</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>サービス紹介</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>お問い合わせ など</li>
+          </ul>
+          <div class="plan-action">
+            <a class="btn btn-outline btn-block" href="/contact.html?plan=light">このプランで相談する<span class="arrow" aria-hidden="true">→</span></a>
+          </div>
         </div>
-        <ol class="numbered">
-          <li><span class="n">01</span><p>紹介と訪問だけでは、出会える相手は自社の行動範囲に限られる。</p></li>
-          <li><span class="n">02</span><p>HPがあれば、探している側から見つけられる。時間帯も地域も問わない。</p></li>
-          <li><span class="n">03</span><p>問い合わせが入る導線ができれば、商談の母数そのものが変わる。営業の上限が、人数から外れる。</p></li>
-        </ol>
+
+        <div class="plan">
+          <span class="plan-badge">人気</span>
+          <h3 class="plan-name">スタンダードプラン</h3>
+          <p class="plan-scale">10ページまで</p>
+          <p class="plan-price">
+            <span class="yen">¥</span><span class="amount">298,000</span><span class="from">〜</span><span class="tax">（税別）</span>
+          </p>
+          <ul class="plan-features">
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>トップページ</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>会社概要</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>サービス紹介</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>実績紹介</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>採用情報 など</li>
+          </ul>
+          <div class="plan-action">
+            <a class="btn btn-primary btn-block" href="/contact.html?plan=standard">このプランで相談する<span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <div class="plan">
+          <h3 class="plan-name">プレミアムプラン</h3>
+          <p class="plan-scale">20ページまで</p>
+          <p class="plan-price">
+            <span class="yen">¥</span><span class="amount">448,000</span><span class="from">〜</span><span class="tax">（税別）</span>
+          </p>
+          <ul class="plan-features">
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>トップページ</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>会社概要</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>サービス紹介</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>実績紹介</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>採用情報</li>
+            <li><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8.5 6 12l7.5-8"></path></svg>ブログ・お知らせ など</li>
+          </ul>
+          <div class="plan-action">
+            <a class="btn btn-outline btn-block" href="/contact.html?plan=premium">このプランで相談する<span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-    <p class="pullquote"><span class="phrase">HPは広告ではなく、</span><span class="phrase">取引の前提条件です。</span></p>
-  </section>
-
-  <hr class="rule">
-
-  <section id="service" class="wrap section">
-    <div class="split">
-      <div>
-        <span class="kicker">What we make</span>
-        <h2 class="h2-sm"><span class="phrase">見た目より、</span><span class="phrase">確かめられることを。</span></h2>
-        <p class="lede">制作は、掲載すべき情報の棚卸しから始めます。事業内容、実績、体制、連絡先。取引先が確かめたい順に並べ、更新できる形で納品します。写真はモノクロで統一し、写真の良し悪しに品質が左右されない設計にしています。</p>
-      </div>
-      <figure class="grayscale">
-        <img src="/assets/img/office.jpg" alt="GK WORKの制作風景" width="951" height="665" loading="lazy" decoding="async">
-      </figure>
-    </div>
-  </section>
-
-  <hr class="rule">
-
-  <section id="price" class="wrap pricing">
-    <span class="kicker">Pricing</span>
-    <h2 class="h2-sm pricing-title">費用の目安</h2>
-    <div class="table-scroll">
-      <table class="table">
-        <thead>
-          <tr><th scope="col">プラン</th><th scope="col">規模</th><th scope="col">制作費（税別）</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>ペライチ</td><td>1ページ完結</td><td>148,000円</td></tr>
-          <tr><td>スタンダード</td><td>〜10ページ</td><td>298,000円</td></tr>
-          <tr><td>プロ</td><td>11ページ〜</td><td>448,000円</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note">金額はページ数で決まります。原稿作成・撮影が必要な場合のみ別途お見積もりします。</p>
-
-    <div class="option-grid">
-      <div>
-        <span class="tag tag-outline">オプション</span>
-        <h3>定期メンテナンス</h3>
-      </div>
-      <p>公開後は自社で更新できる形で納品します。更新・修正を当社で受け持つ定期メンテナンスは、必要な場合のみのオプションです。ご相談時にお見積もりします。</p>
     </div>
   </section>
 
   <section id="contact" class="cta">
-    <div class="wrap">
-      <h2>
-        <span>まず、検索されたときに</span>
-        <span>何が出てくるかを見ます。</span>
-      </h2>
-      <p>初回相談は無料です。現状の見え方を診断し、必要なページ構成と費用の目安をその場でお伝えします。</p>
-      <div class="actions">
-        <a href="/contact.html" class="btn btn-ghost btn-ghost-invert">無料相談を申し込む</a>
-        <a href="tel:05035900212" class="btn btn-ghost btn-ghost-invert">050-3590-0212</a>
+    <div class="cta-media" aria-hidden="true">
+      <picture>
+        <source srcset="/assets/img/city-skyline.webp" type="image/webp">
+        <img src="/assets/img/city-skyline.jpg" alt="" width="1182" height="414" loading="lazy" decoding="async">
+      </picture>
+    </div>
+
+    <div class="wrap cta-inner">
+      <div>
+        <h2>
+          <span>あなたの会社の「伝えたい」を、</span>
+          <span>一緒に作りませんか？</span>
+        </h2>
+        <p>まずは無料でご相談ください。最適なプランをご提案します。</p>
       </div>
+      <a class="btn btn-white" href="/contact.html">無料相談・お問い合わせ<span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <span class="brand-mark">GK WORK</span>
-  <span>050-3590-0212 / 東京都</span>
-  <span class="push">© 2026 GK WORK</span>
+  <div class="wrap footer-inner">
+    <a class="brand" href="/"><span class="brand-name">GK WORK</span></a>
+    <nav class="footer-nav" aria-label="フッターナビゲーション">
+      <a href="/service.html">サービス</a>
+      <a href="/price.html">料金</a>
+      <a class="is-pending" href="#" title="準備中">制作実績</a>
+      <a href="/faq.html">よくある質問</a>
+      <a class="is-pending" href="#" title="準備中">運営者情報</a>
+    </nav>
+    <span class="copyright">© 2026 GK WORK</span>
+  </div>
 </footer>
 
 <script src="/assets/js/nav.js" defer></script>

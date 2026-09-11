@@ -1,0 +1,221 @@
+/* ==========================================================================
+   GK WORK — サービス（/service.html）固有のスタイル
+   デザイン出典: GKwork_Service.png
+
+   トークン・ヘッダー・CTA帯・フッターは base.css 側。service.html は
+   base.css → service.css の順で読む。共通部品を直すときは base.css を見ること。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ヒーロー（左：白地のコピー／右：断ち落としの写真）
+   -------------------------------------------------------------------------- */
+.svc-hero {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* 写真は右端まで断ち落とす。左辺の斜めはモックの切り替え線の再現で、
+   写真そのものは矩形のまま（斜めは CSS 側だけが持つ）。 */
+.svc-hero-figure {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* 幅に上限を置く理由：写真は縦 1:1.05 に近いので、横に伸びるほど
+     object-fit: cover の上下の切り落としが増え、手書きコピーと
+     キャプションが画面外に出る。高さ（48vw）との比を保つための上限。 */
+  width: 56%;
+  margin: 0;
+  /* モックの切り替え線は下にいくほど右へ寄る。写真自体は矩形のまま。 */
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 2.6% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 2.6% 100%);
+}
+.svc-hero-figure picture { display: block; height: 100%; }
+.svc-hero-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 手書きコピー（上）とキャプション（下）を両方入れる位置 */
+  object-position: 50% 50%;
+}
+
+.svc-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(44px, 6vw, 84px);
+  min-height: clamp(380px, 40vw, 500px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* 写真の左端（44%）に食い込まない幅。px で持つ理由は base.css の ic の注意書きと同じ。 */
+.svc-hero-copy { max-width: min(430px, 42%); }
+
+.svc-hero h1 {
+  font-size: clamp(27px, 3.6vw, 44px);
+  line-height: 1.34;
+  letter-spacing: .005em;
+}
+.svc-hero h1 span { display: block; }
+
+.svc-hero-lede {
+  margin-top: clamp(18px, 2.4vw, 26px);
+  font-size: 14.5px;
+  line-height: 2;
+}
+.svc-hero-lede span { display: block; }
+
+.svc-hero-actions { margin-top: clamp(24px, 3.2vw, 36px); }
+
+/* --------------------------------------------------------------------------
+   サービス一覧
+   -------------------------------------------------------------------------- */
+.svc-list-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.svc-cards {
+  margin-top: clamp(24px, 3.4vw, 40px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.2vw, 28px);
+}
+
+.svc-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .2s, transform .2s, border-color .2s;
+}
+.svc-card:hover {
+  border-color: #c9d9ee;
+  box-shadow: 0 14px 30px rgba(8, 44, 96, .12);
+  transform: translateY(-2px);
+}
+/* ページが未作成のあいだは動かさない。作ったら is-pending を外すこと。 */
+.svc-card.is-pending { cursor: default; }
+.svc-card.is-pending:hover { transform: none; box-shadow: none; border-color: var(--line); }
+
+.svc-card-img {
+  width: 100%;
+  /* height:auto を明示しないと、img の height 属性（presentational hint）が
+     そのまま高さになり aspect-ratio が効かない。属性は残す（CLS 対策）。 */
+  height: auto;
+  aspect-ratio: 16 / 6.6;
+  object-fit: cover;
+  background: var(--paper-soft);
+}
+
+.svc-card-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: clamp(18px, 2.2vw, 24px) clamp(18px, 2.2vw, 26px);
+}
+.svc-card-body > div { flex: 1; }
+
+.svc-card h3 {
+  font-size: clamp(16px, 1.7vw, 18px);
+  color: var(--blue);
+}
+.svc-card p {
+  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+.svc-card p span { display: block; }
+
+.svc-card-arrow {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #edf4fc;
+  color: var(--blue);
+  font-size: 15px;
+  transition: background-color .2s, color .2s;
+}
+.svc-card:hover .svc-card-arrow { background: var(--blue); color: #fff; }
+.svc-card.is-pending:hover .svc-card-arrow { background: #edf4fc; color: var(--blue); }
+
+/* --------------------------------------------------------------------------
+   選ばれる理由
+   -------------------------------------------------------------------------- */
+.svc-why { background: var(--paper-tint); }
+
+.svc-reasons {
+  margin-top: clamp(26px, 3.4vw, 42px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(26px, 3.6vw, 48px) clamp(30px, 5vw, 72px);
+}
+
+.svc-reason {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: clamp(16px, 2vw, 24px);
+}
+.svc-reason-icon {
+  width: clamp(56px, 6vw, 68px);
+  height: clamp(56px, 6vw, 68px);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue);
+  box-shadow: 0 6px 16px rgba(10, 47, 107, .08);
+}
+.svc-reason-icon svg { width: 26px; height: 26px; }
+
+.svc-reason h3 {
+  font-size: clamp(16px, 1.7vw, 19px);
+  color: var(--navy);
+}
+.svc-reason p {
+  margin-top: 10px;
+  font-size: 13.5px;
+  line-height: 1.95;
+}
+.svc-reason p span { display: block; }
+
+/* --------------------------------------------------------------------------
+   レスポンシブ
+   -------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  /* ここより上は 2カラムのまま。820px 付近で積むと写真が画面を
+     埋め尽くすので、積むのは本当に狭い幅だけにする。
+     写真は文章の下に回す（DOM 順のまま積むだけでよい）。 */
+  .svc-hero-figure {
+    position: static;
+    width: 100%;
+    /* 写真そのものの比率。16/9 にすると手書きコピーが上下に切れる。 */
+    aspect-ratio: 952 / 996;
+    -webkit-clip-path: none;
+    clip-path: none;
+  }
+  .svc-hero-inner { min-height: 0; padding-block: clamp(36px, 6vw, 56px); }
+  .svc-hero-copy { max-width: none; }
+
+  .svc-cards { grid-template-columns: 1fr; }
+  .svc-reasons { grid-template-columns: 1fr; gap: 26px; }
+  /* span を inline に戻すとソース改行の空白が行頭に残るので、
+     狭い画面でも行単位の block のままにする（base.css と同じ判断）。 */
+}
+
+@media (max-width: 420px) {
+  .svc-card-body { gap: 12px; padding: 18px; }
+  .svc-card-arrow { width: 34px; height: 34px; }
+}

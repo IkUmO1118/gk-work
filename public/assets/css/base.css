@@ -1,0 +1,488 @@
+/* ==========================================================================
+   GK WORK — 全ページ共通のベース
+   デザイン出典: GKwork_Home.png / GKwork_Service.png（青×写真のコーポレート版）
+
+   トークン・ボタン・ヘッダー・ドロワー・CTA帯・フッターだけを置く。
+   ページ固有の中身は home.css / service.css 側に書くこと。
+   contact.html / 404.html は従来の style.css のままなので、
+   それらを新デザインに寄せるときはこのファイルを読ませるところから。
+
+   【注意】ch 単位を使わないこと。--font-body の先頭は欧文の Archivo で
+   和文グリフを持たないため、ch は常に Archivo の「0」幅（実測 0.57em）で
+   解決される。和文の行長は ic（1ic = 和文1文字）で指定する。
+   ただし ic は「その要素の font-size」基準なので、見出しの幅には使わない。
+
+   【注意】netlify.toml の CSP が style-src 'self' なので、HTML 側に
+   style 属性やインライン <style> を書かないこと（無視される）。
+   ========================================================================== */
+
+:root {
+  /* 配色はモックアップから実サンプリングした値 */
+  --blue: #0b4ca6;          /* ブランド／主ボタン */
+  --blue-dark: #093f8a;     /* ホバー */
+  --blue-bright: #1466e0;   /* 「人気」バッジ */
+  --navy: #0a2f6b;          /* 見出し */
+  --ink: #1b3d68;           /* ナビ・強めの本文 */
+  --muted: #5b6e8a;         /* 本文 */
+  --sky: #9cc0e8;           /* 01 / 02 / 03 の数字 */
+  --line: #dde5ef;
+  --white: #ffffff;
+  --paper: #ffffff;
+  --paper-soft: #f6f9fc;
+  --paper-tint: #f4f8fc;    /* 「選ばれる理由」など、薄い青を敷く面 */
+
+  --font-heading: "Archivo", "Zen Kaku Gothic New", system-ui, sans-serif;
+  --font-body: "Archivo", "Zen Kaku Gothic New", system-ui, sans-serif;
+
+  --wrap: 1160px;
+  --gutter: clamp(20px, 5vw, 56px);
+  --radius-card: 16px;
+  --header-h: 68px;
+
+  --shadow-card: 0 18px 40px rgba(4, 26, 61, 0.18);
+  --shadow-btn: 0 8px 18px rgba(9, 63, 138, 0.28);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  text-wrap: pretty;
+  line-break: strict;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .01em;
+  color: var(--navy);
+}
+p { margin: 0; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* 和文には語の区切りがないため、塊にしておかないと語の途中で折れる。
+   span 同士をソース上で改行で区切らないこと（空白が入る）。 */
+.phrase { display: inline-block; }
+
+/* 画面には出さないが読み上げには残す（比較表の○×など） */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--blue);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 700;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+:where(a, button):focus-visible {
+  outline: 3px solid #ffb020;
+  outline-offset: 3px;
+}
+
+/* 下層ページの肩見出し（「サービス SERVICE」「料金 PRICING」） */
+.page-eyebrow {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: clamp(16px, 2.2vw, 26px);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.page-eyebrow .en {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: .14em;
+  color: var(--navy);
+}
+
+/* セクション見出しの右に置く導線（「すべてのサービスを見る →」） */
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.link-more .arrow { transition: transform .2s; }
+.link-more:hover .arrow { transform: translateX(3px); }
+.link-more.is-pending { cursor: default; }
+.link-more.is-pending:hover .arrow { transform: none; }
+
+/* --------------------------------------------------------------------------
+   ボタン
+   -------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color .2s, color .2s, border-color .2s, transform .2s, box-shadow .2s;
+}
+.btn .arrow { font-size: 1.05em; line-height: 1; transition: transform .2s; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+.btn-primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  box-shadow: var(--shadow-btn);
+}
+.btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+
+/* 写真の上に置く白ボタン */
+.btn-white {
+  background: #fff;
+  border-color: #fff;
+  color: var(--blue);
+  box-shadow: 0 10px 26px rgba(3, 24, 56, .28);
+}
+.btn-white:hover { background: #eef4fd; border-color: #eef4fd; }
+
+/* カード内の枠線ボタン */
+.btn-outline {
+  background: transparent;
+  border-color: var(--blue);
+  color: var(--blue);
+}
+.btn-outline:hover { background: var(--blue); color: #fff; }
+
+.btn-block { width: 100%; }
+
+/* セクション見出しの右に置く「すべて見る →」の類（service / price が使う） */
+.link-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.link-more .arrow { transition: transform .2s; }
+.link-more:hover .arrow { transform: translateX(3px); }
+.link-more.is-pending { cursor: default; }
+.link-more.is-pending:hover .arrow { transform: none; }
+
+/* --------------------------------------------------------------------------
+   ヘッダー
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 1px 0 rgba(12, 46, 94, .08);
+}
+
+.site-nav {
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding: 0 var(--gutter);
+  min-height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 34px);
+}
+
+.brand {
+  margin-right: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+}
+.brand-logo { width: 26px; height: 26px; }
+.brand-name {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(19px, 2.4vw, 23px);
+  letter-spacing: .01em;
+  color: var(--blue);
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color .2s;
+}
+.nav-link:hover { color: var(--blue); }
+
+/* 現在地。モックではサービスの下に短い下線が入る。 */
+.nav-link[aria-current="page"] {
+  color: var(--blue);
+  box-shadow: inset 0 -2px 0 var(--blue);
+  padding-bottom: 4px;
+}
+
+/* 制作実績・運営者情報はページが未作成。作ったら href を
+   /works.html などに差し替えて is-pending と title を外す。 */
+.nav-link.is-pending { cursor: default; }
+.nav-link.is-pending:hover { color: var(--ink); opacity: .75; }
+
+.nav-cta { padding: 11px 22px; font-size: 13.5px; }
+
+/* ハンバーガー */
+.nav-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  margin-right: -8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 4px auto;
+  background: var(--ink);
+  transition: transform .2s, opacity .2s;
+}
+body.nav-open .nav-toggle-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+body.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+body.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ドロワー */
+.nav-drawer { display: none; }
+body.nav-open { overflow: hidden; }
+
+@media (max-width: 900px) {
+  .site-nav .nav-link:not(.nav-link-keep),
+  .site-nav .nav-cta { display: none; }
+  .nav-toggle { display: block; }
+
+  /* ドロワーより前にバーを出す。そうしないとパネルが被って、
+     開いたあとに×（＝同じバーガー）を押せなくなる。 */
+  .site-nav { position: relative; z-index: 101; background: #fff; }
+
+  .nav-drawer {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    visibility: hidden;
+  }
+  body.nav-open .nav-drawer { visibility: visible; }
+
+  .nav-drawer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(6, 28, 60, .45);
+    opacity: 0;
+    transition: opacity .25s;
+  }
+  body.nav-open .nav-drawer-backdrop { opacity: 1; }
+
+  .nav-drawer-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(320px, 86vw);
+    height: 100%;
+    padding: calc(var(--header-h) + 20px) 24px 28px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transform: translateX(100%);
+    transition: transform .25s ease;
+    overflow-y: auto;
+  }
+  body.nav-open .nav-drawer-panel { transform: translateX(0); }
+
+  .drawer-link {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 2px;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .drawer-link .n {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 12px;
+    color: var(--sky);
+  }
+  .drawer-foot { margin-top: 22px; }
+}
+
+/* --------------------------------------------------------------------------
+   セクション共通
+   -------------------------------------------------------------------------- */
+.section { padding-block: clamp(56px, 8vw, 96px); }
+
+.section-title {
+  font-size: clamp(23px, 3.1vw, 34px);
+  letter-spacing: .005em;
+}
+
+/* --------------------------------------------------------------------------
+   CTA 帯
+   -------------------------------------------------------------------------- */
+.cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background: #0b4ea4;
+}
+.cta-media { position: absolute; inset: 0; z-index: -1; }
+.cta-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 78%;
+}
+.cta-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(9, 62, 135, .96) 0%, rgba(10, 66, 142, .88) 45%, rgba(12, 74, 155, .66) 100%);
+}
+
+.cta-inner {
+  padding-block: clamp(40px, 5.2vw, 62px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(20px, 4vw, 48px);
+}
+.cta h2 {
+  color: #fff;
+  font-size: clamp(21px, 2.9vw, 32px);
+  line-height: 1.5;
+}
+.cta h2 span { display: block; }
+.cta p {
+  margin-top: 14px;
+  font-size: 14.5px;
+  color: rgba(255, 255, 255, .92);
+}
+
+/* 中央寄せの版（service.html / price.html が使う） */
+.cta-center {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(20px, 2.6vw, 28px);
+}
+.cta-center p span { display: block; }
+
+/* 中央寄せの版（service / price が使う） */
+.cta-center {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: clamp(20px, 2.6vw, 28px);
+}
+.cta-center p span { display: block; }
+
+/* --------------------------------------------------------------------------
+   フッター
+   -------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--paper-soft);
+  border-top: 1px solid var(--line);
+}
+.footer-inner {
+  padding-block: clamp(22px, 3vw, 30px);
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+  flex-wrap: wrap;
+}
+.footer-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.4vw, 32px);
+  flex-wrap: wrap;
+}
+.footer-nav a {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #3c5c82;
+  text-decoration: none;
+}
+.footer-nav a:hover { color: var(--blue); }
+.footer-nav a.is-pending:hover { color: #3c5c82; opacity: .75; }
+.copyright {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: #64799a;
+}
+
+/* --------------------------------------------------------------------------
+   レスポンシブ（共通部）
+   -------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  :root { --header-h: 60px; }
+
+  .cta-inner { flex-direction: column; align-items: flex-start; }
+
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .copyright { margin-left: 0; }
+}

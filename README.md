@@ -5,7 +5,7 @@
 `main` に push すると Netlify が自動でデプロイする（Deploy Key + Webhook 連携済み）。
 手動デプロイが必要な場合のみ `npx netlify-cli deploy --prod`。
 
-HP制作会社「GK WORK」の静的コーポレートサイト。ビルド不要の HTML / CSS / JS。
+ホームページ制作「GK WORK」の静的サイト。ビルド不要の HTML / CSS / JS。
 
 ```
 .
