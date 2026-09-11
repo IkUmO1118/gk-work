@@ -6,6 +6,21 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://gk-work.netlify.app/service.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gk-work.netlify.app/price.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://gk-work.netlify.app/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://gk-work.netlify.app/contact.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>

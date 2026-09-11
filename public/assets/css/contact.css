@@ -1,0 +1,352 @@
+/* ==========================================================================
+   GK WORK — お問い合わせ（/contact.html）固有のスタイル
+   デザイン出典: GKwork_form.png
+
+   トークン・ヘッダー・フッターは base.css 側。contact.html は
+   base.css → contact.css の順で読む。
+
+   フォームのロジックは assets/js/contact.js のまま。つまり
+   ・各項目は .field で包む（markField が closest('.field') を見る）
+   ・エラー文の id は「<入力の id>-error」
+   ・#form-panel / #thanks-panel / #form-status / #submit-btn / #reset-btn は必須
+   これらの構造は見た目を変えても壊さないこと。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ヒーロー
+   -------------------------------------------------------------------------- */
+.contact-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(100deg, #eaf2fb 0%, #e3edf9 45%, #dbe8f7 100%);
+}
+
+.contact-hero-figure {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(66%, 940px);
+  margin: 0;
+  /* リード文の右端が写真の明るい部分に掛かるので、溶かす範囲を広めに取る */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 38%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 38%);
+}
+.contact-hero-figure picture { display: block; height: 100%; }
+.contact-hero-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.contact-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(30px, 4vw, 54px);
+  min-height: clamp(260px, 27vw, 400px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.contact-hero-copy { max-width: min(480px, 48%); }
+
+.contact-hero-eyebrow {
+  font-family: var(--font-heading);
+  font-size: clamp(12.5px, 1.3vw, 14px);
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--blue);
+}
+
+.contact-hero h1 {
+  margin-top: clamp(8px, 1.2vw, 14px);
+  font-size: clamp(26px, 3.4vw, 42px);
+  line-height: 1.3;
+}
+
+.contact-hero-sub {
+  margin-top: clamp(8px, 1.2vw, 14px);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(15px, 1.8vw, 21px);
+  color: var(--navy);
+}
+
+.contact-hero-lede {
+  margin-top: clamp(14px, 1.8vw, 20px);
+  font-size: 13.5px;
+  line-height: 1.95;
+  color: #3f5a7d;
+}
+/* .line はデザイン上の1行。中の .phrase（base.css）は折り返してよい文節。 */
+.contact-hero-lede .line { display: block; }
+
+/* --------------------------------------------------------------------------
+   3つの安心ポイント
+   -------------------------------------------------------------------------- */
+.contact-points {
+  margin-top: clamp(26px, 3.4vw, 42px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.8vw, 22px);
+}
+
+.contact-point {
+  padding: clamp(20px, 2.4vw, 28px) 18px;
+  border: 1px solid #e0eaf5;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #fbfdff 0%, #f4f9fe 100%);
+  text-align: center;
+}
+.contact-point svg {
+  width: 30px;
+  height: 30px;
+  color: var(--blue);
+}
+.contact-point h2 {
+  margin-top: 14px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--navy);
+}
+.contact-point h2 span { display: block; }
+.contact-point p {
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   フォームのカード
+   -------------------------------------------------------------------------- */
+.contact-card {
+  margin-top: clamp(20px, 2.6vw, 30px);
+  padding: clamp(26px, 3.4vw, 44px) clamp(20px, 3vw, 40px);
+  border: 1px solid #e3ebf5;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fdfeff 0%, #f7fbff 100%);
+}
+
+.contact-card > h2 {
+  font-size: clamp(19px, 2.2vw, 24px);
+  color: var(--blue);
+}
+.contact-card-lede {
+  margin-top: 10px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.contact-form { margin-top: clamp(22px, 3vw, 32px); }
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.2vw, 26px) clamp(18px, 2.6vw, 32px);
+}
+.field-grid .field-full { grid-column: 1 / -1; }
+
+/* 「連絡先情報」。上に区切り線を持たせて、選択項目と連絡先を分ける。 */
+.contact-subhead {
+  margin-top: clamp(6px, 1vw, 12px);
+  padding-top: clamp(18px, 2.4vw, 28px);
+  border-top: 1px solid #e3ebf5;
+  font-size: clamp(15px, 1.7vw, 17px);
+  color: var(--blue);
+}
+
+.field label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 9px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.badge-req,
+.badge-opt {
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: .02em;
+}
+.badge-req { background: #fdeaea; color: #d0453f; }
+.badge-opt { background: #eef2f7; color: #6b7f96; }
+
+.input {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #dde7f2;
+  border-radius: 8px;
+  background: #fbfdff;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink);
+  transition: border-color .15s, box-shadow .15s;
+}
+.input::placeholder { color: #a3b2c6; }
+.input:focus-visible {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(11, 76, 166, .12);
+}
+
+/* select の矢印。CSP の img-src は 'self' と data: を許可しているので
+   data URI の SVG を背景に置ける。 */
+select.input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%235b6e8a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3.5 6 4.5 4.5L12.5 6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 15px 15px;
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 128px;
+}
+
+/* contact.js が .field に付ける。エラー文は既定で隠しておく。 */
+.field-error {
+  display: none;
+  margin-top: 7px;
+  font-size: 12.5px;
+  color: #d0453f;
+}
+.field.is-invalid .input { border-color: #e0918d; background: #fffafa; }
+.field.is-invalid .field-error { display: block; }
+
+.note-sm {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* スパム対策の隠し項目。display:none にすると自動入力が避けるので
+   画面外に出すだけにする（挙動は旧実装と同じ）。 */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-actions { margin-top: clamp(24px, 3.2vw, 34px); }
+.form-actions .btn { padding-block: 16px; font-size: 15px; }
+
+.form-status {
+  margin-top: 14px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--muted);
+}
+.form-status[data-state="error"] { color: #d0453f; }
+.form-status[data-state="sending"] { color: var(--blue); }
+.form-status:empty { display: none; }
+
+/* JavaScript が無効なときの案内 */
+.contact-card noscript .form-status {
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  border: 1px solid #e0918d;
+  border-radius: 8px;
+  background: #fffafa;
+  text-align: left;
+}
+
+/* 送信後 */
+.thanks {
+  margin-top: clamp(20px, 2.6vw, 30px);
+  padding: clamp(32px, 4.4vw, 56px) clamp(20px, 3vw, 40px);
+  border: 1px solid #e3ebf5;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fdfeff 0%, #f7fbff 100%);
+  text-align: center;
+}
+.thanks h2 {
+  font-size: clamp(20px, 2.4vw, 26px);
+  color: var(--blue);
+}
+.thanks h2:focus-visible { outline: 3px solid #ffb020; outline-offset: 4px; }
+.thanks p {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.9;
+}
+.thanks .actions {
+  margin-top: clamp(20px, 2.6vw, 28px);
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   下部のバナー
+   -------------------------------------------------------------------------- */
+.contact-banner {
+  margin-top: clamp(22px, 3vw, 34px);
+  margin-bottom: clamp(48px, 6vw, 80px);
+  padding: clamp(20px, 2.6vw, 30px);
+  border-radius: 14px;
+  background: linear-gradient(100deg, #eaf3fd 0%, #e6f0fc 60%, #eaf3fd 100%);
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.6vw, 30px);
+}
+.contact-banner img {
+  flex: none;
+  width: clamp(78px, 8vw, 96px);
+  height: clamp(80px, 8.2vw, 98px);
+  object-fit: cover;
+  border-radius: 12px;
+}
+.contact-banner h2 {
+  font-size: clamp(16px, 1.9vw, 19px);
+  color: var(--blue);
+}
+.contact-banner p {
+  margin-top: 12px;
+  font-size: 13.5px;
+  line-height: 1.9;
+}
+.contact-banner p span { display: block; }
+
+/* --------------------------------------------------------------------------
+   レスポンシブ
+   -------------------------------------------------------------------------- */
+@media (max-width: 860px) {
+  .contact-points { grid-template-columns: 1fr; }
+  .contact-point { display: flex; align-items: center; gap: 16px; text-align: left; padding: 16px 18px; }
+  .contact-point svg { width: 26px; height: 26px; }
+  .contact-point h2 { margin-top: 0; }
+  .contact-point h2 span { display: inline; }
+}
+
+@media (max-width: 760px) {
+  /* 写真は文章の下に回す */
+  .contact-hero-figure {
+    position: static;
+    width: 100%;
+    aspect-ratio: 1024 / 576;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .contact-hero-inner { min-height: 0; padding-block: clamp(26px, 6vw, 44px); }
+  .contact-hero-copy { max-width: none; }
+  /* 行の指定を解いて、文節（.phrase）の境界だけで折り返す */
+  .contact-hero-lede .line { display: inline; }
+
+  .field-grid { grid-template-columns: 1fr; }
+
+  .contact-banner { flex-direction: column; align-items: flex-start; }
+}

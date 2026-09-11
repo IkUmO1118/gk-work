@@ -42,10 +42,11 @@
   });
 
   // 開いたままデスクトップ幅に戻ると、リンク列とドロワーが二重になる。
-  var wide = window.matchMedia('(min-width: 861px)');
-  var onWide = function (e) { if (e.matches) close(false); };
-  if (wide.addEventListener) wide.addEventListener('change', onWide);
-  else wide.addListener(onWide);
+  // 切り替え幅は index（home.css）が 900px、contact/404（style.css）が 860px と
+  // 違うので、数値では判定しない。バーガー自体が CSS で消えた＝デスクトップ表示。
+  window.addEventListener('resize', function () {
+    if (window.getComputedStyle(toggle).display === 'none') close(false);
+  });
 
   // JS 到達前に開いて見えることはないが、初期状態を明示しておく。
   setOpen(false);

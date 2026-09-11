@@ -1,0 +1,300 @@
+/* ==========================================================================
+   GK WORK — ホーム（/）固有のスタイル
+   デザイン出典: GKwork_Home.png
+
+   トークン・ヘッダー・CTA帯・フッターは base.css 側。index.html は
+   base.css → home.css の順で読む。共通部品を直すときは base.css を見ること。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   ヒーロー
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background: linear-gradient(104deg, #0a56ac 0%, #0f65bd 46%, #2a87d2 100%);
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.hero-media picture { display: block; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* 下半分に走る街並み。ヒーロー写真（右）と地平線がつながるよう
+   高さと位置を合わせてある。動かすときは両方を見ること。 */
+.hero-city {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 48%;
+}
+.hero-city img {
+  object-position: 50% 88%;
+  opacity: .92;
+  -webkit-mask-image: linear-gradient(to top, #000 46%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 46%, transparent 100%);
+}
+
+/* 文字が乗る左側だけ紺を薄く敷く。街並みの明るいビルの上に
+   白文字が来るとコントラストが落ちるため。写真の見え方は右側で保つ。 */
+.hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(5, 38, 84, .55) 0%, rgba(5, 38, 84, .24) 40%, rgba(5, 38, 84, 0) 64%);
+}
+
+/* 後ろ姿の人物。左端はグラデーションで背景に溶かす。 */
+.hero-person {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(56%, 720px);
+}
+.hero-person img {
+  object-position: 52% 34%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 36%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 36%);
+}
+
+.hero-inner {
+  position: relative;
+  padding-block: clamp(56px, 8vw, 96px);
+  min-height: clamp(440px, 46vw, 580px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* ic は「その要素の font-size」基準で解くので、15px の .hero-copy に
+   34ic と書くと 510px にしかならず、50px の h1（12文字＝約600px）が
+   4行に折れる。ヒーローの見出し幅は px で持つこと。 */
+.hero-copy { max-width: min(660px, 70%); }
+
+.hero-eyebrow {
+  font-size: clamp(13px, 1.5vw, 16px);
+  font-weight: 700;
+  letter-spacing: .02em;
+  margin-bottom: clamp(14px, 2vw, 22px);
+  text-shadow: 0 1px 12px rgba(4, 26, 60, .45);
+}
+
+.hero h1 {
+  color: #fff;
+  /* 最長行「ビジネスの未来をつくる。」＝12文字が、.hero-copy の幅
+     （70%）に必ず収まる係数。上げるときは 320px 幅まで確認すること。 */
+  font-size: clamp(23px, 4.9vw, 50px);
+  font-weight: 700;
+  line-height: 1.36;
+  letter-spacing: .005em;
+  text-shadow: 0 2px 18px rgba(4, 26, 60, .4);
+}
+.hero h1 span { display: block; }
+
+.hero-lede {
+  margin-top: clamp(18px, 2.6vw, 28px);
+  font-size: clamp(13.5px, 1.45vw, 15.5px);
+  line-height: 2;
+  text-shadow: 0 1px 12px rgba(4, 26, 60, .45);
+}
+.hero-lede span { display: block; }
+
+.hero-actions { margin-top: clamp(24px, 3.4vw, 40px); }
+
+/* --------------------------------------------------------------------------
+   なぜ、今Webサイトなのか？
+   -------------------------------------------------------------------------- */
+.reasons {
+  margin-top: clamp(30px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+}
+.reason { position: relative; }
+.reason + .reason::before {
+  content: "";
+  position: absolute;
+  left: calc(clamp(24px, 4vw, 56px) / -2);
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: var(--line);
+}
+.reason-num {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(38px, 5vw, 54px);
+  line-height: 1;
+  color: var(--sky);
+  letter-spacing: -.01em;
+}
+.reason h3 {
+  margin-top: clamp(14px, 1.8vw, 20px);
+  font-size: clamp(17px, 1.8vw, 20px);
+  color: var(--blue);
+}
+.reason p {
+  margin-top: 12px;
+  font-size: 14.5px;
+  line-height: 1.95;
+  max-width: 21ic;
+}
+
+/* --------------------------------------------------------------------------
+   料金プラン
+   -------------------------------------------------------------------------- */
+.pricing {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  background: #07305f;
+}
+.pricing-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.pricing-media img { width: 100%; height: 100%; object-fit: cover; }
+/* 写真そのままだとカードの白と競るので、青を強めに被せる */
+.pricing-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(8, 58, 122, .93) 0%, rgba(8, 58, 122, .62) 38%, rgba(6, 40, 88, .74) 100%);
+}
+
+.pricing .section-title { color: #fff; }
+.pricing-sub {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, .88);
+  font-size: 14.5px;
+}
+
+.plans {
+  margin-top: clamp(28px, 3.6vw, 44px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(16px, 2vw, 24px);
+  align-items: stretch;
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 2.6vw, 34px) clamp(20px, 2.2vw, 30px);
+  background: #fcfdfe;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.plan-badge {
+  position: absolute;
+  top: clamp(16px, 1.8vw, 22px);
+  right: clamp(16px, 1.8vw, 22px);
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--blue-bright);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.plan-name {
+  font-size: clamp(18px, 1.9vw, 21px);
+  color: var(--blue);
+}
+.plan-scale {
+  margin-top: 10px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.plan-price {
+  margin-top: clamp(14px, 1.8vw, 20px);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--navy);
+}
+.plan-price .yen { font-size: clamp(20px, 2.1vw, 25px); }
+.plan-price .amount {
+  font-size: clamp(26px, 3vw, 35px);
+  letter-spacing: -.01em;
+  line-height: 1.1;
+}
+.plan-price .from { font-size: clamp(18px, 2vw, 24px); }
+.plan-price .tax {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.plan-features {
+  margin: clamp(18px, 2.2vw, 26px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 11px;
+}
+.plan-features li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.plan-features svg {
+  width: 14px;
+  height: 14px;
+  margin-top: 4px;
+  color: var(--blue);
+  flex: none;
+}
+
+.plan-action { margin-top: auto; padding-top: clamp(20px, 2.6vw, 30px); }
+
+/* --------------------------------------------------------------------------
+   レスポンシブ
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .plans { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; }
+  .reasons { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .reason:nth-child(3)::before { display: none; }
+  .reason:nth-child(3) { grid-column: 1 / -1; padding-top: 8px; border-top: 1px solid var(--line); }
+  .reason p { max-width: none; }
+}
+
+@media (max-width: 760px) {
+  /* 縦組みの画面では人物を背面に回し、文字の可読性を優先する */
+  .hero-person { width: 78%; }
+  .hero-person img {
+    object-position: 60% 26%;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 52%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 52%);
+  }
+  /* 縦組みでは文字が写真の全面に重なるので、左だけでなく全体に敷く */
+  .hero-media::after {
+    background: linear-gradient(180deg, rgba(5, 38, 84, .58) 0%, rgba(5, 38, 84, .30) 55%, rgba(5, 38, 84, .46) 100%);
+  }
+  .hero-copy { max-width: none; }
+
+  .reasons { grid-template-columns: 1fr; gap: 28px; }
+  .reason + .reason::before { display: none; }
+  .reason + .reason { padding-top: 24px; border-top: 1px solid var(--line); }
+  .reason:nth-child(3) { grid-column: auto; padding-top: 24px; }
+}

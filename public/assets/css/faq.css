@@ -1,0 +1,334 @@
+/* ==========================================================================
+   GK WORK — よくある質問（/faq.html）固有のスタイル
+   デザイン出典: GKwork_question.png
+
+   トークン・ヘッダー・CTA帯・フッターは base.css 側。faq.html は
+   base.css → faq.css の順で読む。共通部品を直すときは base.css を見ること。
+   ========================================================================== */
+
+:root {
+  --q-blue: #4f80dd;        /* Q の丸 */
+  --a-cyan: #53b9d0;        /* A の丸 */
+  --q-bubble: #eaf1fd;      /* 質問の吹き出し */
+  --a-bubble: #f1f3f8;      /* 回答の吹き出し */
+}
+
+/* --------------------------------------------------------------------------
+   ヒーロー
+   -------------------------------------------------------------------------- */
+.faq-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(100deg, #f8fbfe 0%, #eef4fb 55%, #e4edf7 100%);
+}
+
+/* 写真は右から。左端はマスクで背景に溶かす（モックの見え方と同じ）。
+   手書きコピーと「GOOD WEBSITES BETTER BUSINESS」は写真に焼き込み済み。 */
+.faq-hero-figure {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(60%, 860px);
+  margin: 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 26%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 26%);
+}
+.faq-hero-figure picture { display: block; height: 100%; }
+.faq-hero-figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.faq-hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(36px, 4.6vw, 62px);
+  min-height: clamp(300px, 29vw, 430px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.faq-hero-copy { max-width: min(440px, 44%); }
+
+.faq-hero-eyebrow {
+  font-family: var(--font-heading);
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--blue);
+}
+
+.faq-hero h1 {
+  margin-top: clamp(10px, 1.4vw, 16px);
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.3;
+  letter-spacing: .01em;
+}
+
+.faq-hero-sub {
+  margin-top: clamp(12px, 1.6vw, 18px);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(16px, 1.9vw, 21px);
+  line-height: 1.6;
+  color: var(--navy);
+}
+.faq-hero-sub span { display: block; }
+
+.faq-hero-lede {
+  margin-top: clamp(14px, 1.8vw, 20px);
+  font-size: 14px;
+  line-height: 1.95;
+}
+/* .line はデザイン上の1行。中の .phrase（base.css）は折り返してよい文節。 */
+.faq-hero-lede .line { display: block; }
+
+/* --------------------------------------------------------------------------
+   カテゴリの絞り込みと検索
+   -------------------------------------------------------------------------- */
+.faq-filter {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1.2vw, 16px);
+  flex-wrap: wrap;
+  padding-block: clamp(20px, 2.6vw, 30px) clamp(14px, 2vw, 22px);
+}
+
+.faq-filter-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.faq-cats {
+  display: flex;
+  align-items: center;
+  /* 1160px のラップに「ラベル＋6つのピル＋検索」を1行で収める寸法。
+     文字やパディングを上げると2行に折れるので、増やすときは実測すること。 */
+  gap: clamp(2px, .8vw, 9px);
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.faq-cat {
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #1d4f9e;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color .2s, color .2s;
+}
+.faq-cat:hover { background: #eaf1fd; }
+.faq-cat[aria-pressed="true"] {
+  background: var(--blue);
+  color: #fff;
+}
+
+.faq-search {
+  position: relative;
+  flex: none;
+  width: clamp(180px, 17vw, 224px);
+}
+.faq-search svg {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  width: 15px;
+  height: 15px;
+  margin-top: -7px;
+  color: #7d93b3;
+  pointer-events: none;
+}
+.faq-search input {
+  width: 100%;
+  padding: 11px 18px 11px 40px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ink);
+}
+.faq-search input::placeholder { color: #93a5bf; }
+.faq-search input:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   質問と回答
+   -------------------------------------------------------------------------- */
+.faq-list {
+  margin: 0;
+  padding: 0 0 clamp(20px, 3vw, 34px);
+  list-style: none;
+  display: grid;
+  gap: clamp(20px, 2.6vw, 30px);
+}
+
+.faq-item {
+  display: grid;
+  gap: clamp(10px, 1.4vw, 16px);
+}
+.faq-item[hidden] { display: none; }
+
+.faq-row {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(10px, 1.4vw, 16px);
+}
+/* 回答は右寄せ。丸は行の右端に置く。 */
+.faq-row-a { justify-content: flex-end; padding-left: 8%; }
+
+.faq-badge {
+  flex: none;
+  width: clamp(32px, 3.4vw, 40px);
+  height: clamp(32px, 3.4vw, 40px);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: #fff;
+}
+.faq-badge-q { background: linear-gradient(140deg, #6c9ceb 0%, var(--q-blue) 100%); }
+.faq-badge-a { background: linear-gradient(140deg, #6fcbdd 0%, var(--a-cyan) 100%); }
+
+.faq-bubble {
+  position: relative;
+  padding: clamp(14px, 1.8vw, 18px) clamp(18px, 2.2vw, 26px);
+  border-radius: 14px;
+}
+/* 吹き出しの角。背景を継いだ四角を45度回して出す。 */
+.faq-bubble::before {
+  content: "";
+  position: absolute;
+  top: clamp(12px, 1.4vw, 16px);
+  width: 13px;
+  height: 13px;
+  background: inherit;
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+
+.faq-bubble-q {
+  background: var(--q-bubble);
+  max-width: 62%;
+}
+.faq-bubble-q::before { left: -5px; }
+
+.faq-bubble-a {
+  background: var(--a-bubble);
+  max-width: 76%;
+}
+.faq-bubble-a::before { right: -5px; }
+
+.faq-bubble-q h2 {
+  font-size: clamp(14.5px, 1.6vw, 16.5px);
+  line-height: 1.6;
+  color: var(--navy);
+}
+.faq-bubble-a p {
+  font-size: 13.5px;
+  line-height: 1.95;
+  color: #4f6480;
+}
+
+/* 検索・絞り込みの結果が0件のとき */
+.faq-empty {
+  padding: clamp(28px, 4vw, 44px) 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+.faq-empty[hidden] { display: none; }
+
+/* --------------------------------------------------------------------------
+   まだ解決しない場合
+   -------------------------------------------------------------------------- */
+.faq-more {
+  padding-bottom: clamp(48px, 6vw, 84px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.faq-more .btn { min-width: min(320px, 100%); }
+.faq-more p {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   CTA帯（ボタンの下に注記が入る版）
+   -------------------------------------------------------------------------- */
+.cta-kicker {
+  font-size: 14px;
+  color: rgba(255, 255, 255, .92);
+  margin-bottom: clamp(10px, 1.4vw, 16px);
+}
+.cta-side {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.cta-note {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, .88);
+}
+
+/* --------------------------------------------------------------------------
+   レスポンシブ
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .faq-bubble-q { max-width: 78%; }
+  .faq-bubble-a { max-width: 88%; }
+  .faq-row-a { padding-left: 0; }
+}
+
+@media (max-width: 760px) {
+  /* 写真は文章の下に回す */
+  .faq-hero-figure {
+    position: static;
+    width: 100%;
+    aspect-ratio: 1168 / 596;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .faq-hero-inner { min-height: 0; padding-block: clamp(30px, 6vw, 48px); }
+  .faq-hero-copy { max-width: none; }
+  /* 狭い画面では行の指定を解いて、文節（.phrase）の境界だけで折り返す。
+     HTML 側で span 同士を改行で区切っていないので空白は入らない。 */
+  .faq-hero-lede .line { display: inline; }
+
+  /* カテゴリは折り返さず横スクロールさせる。折り返すと3段になって
+     質問より背が高くなる。 */
+  .faq-cats {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .faq-filter-label { display: none; }
+  .faq-search { width: 100%; }
+
+  .faq-bubble-q,
+  .faq-bubble-a { max-width: none; }
+
+  .cta-side { align-items: stretch; width: 100%; }
+  .cta-note { text-align: center; }
+}

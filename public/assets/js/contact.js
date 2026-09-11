@@ -23,6 +23,18 @@
   var statusEl = document.getElementById('form-status');
   var resetBtn = document.getElementById('reset-btn');
 
+  // トップの「このプランで相談する」は /contact.html?plan=light のように来る。
+  // option の value は GAS の通知メールにそのまま載るので日本語のまま残し、
+  // 突き合わせは data-plan で行う。
+  (function prefillPlan() {
+    var key = (location.search.match(/[?&]plan=([a-z]+)/) || [])[1];
+    if (!key) return;
+    var select = document.getElementById('plan');
+    if (!select) return;
+    var option = select.querySelector('option[data-plan="' + key + '"]');
+    if (option) select.value = option.value;
+  })();
+
   var FIELDS = ['topic', 'plan', 'timing', 'current', 'company', 'person', 'email', 'tel', 'other'];
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
